@@ -16,13 +16,19 @@ document.querySelector("form").addEventListener("submit", async function(event) 
     button.setAttribute("disabled", true);
 
     if (document.getElementById("input-amount").value.length != 0){
-        
-    }
-    await dbank_backend.topUp(inputAmount);
+        await dbank_backend.topUp(inputAmount); 
+    };
+
+    if (document.getElementById("withdrawal-amount").value.length != 0){
+        await dbank_backend.withdraw(outputAmount); 
+    };
 
     const currentAmount = await dbank_backend.checkBalance();
+
     document.getElementById("value").innerText = Math.round(currentAmount * 100) / 100;
 
     document.getElementById("input-amount").value = "";
+    document.getElementById("withdrawal-amount").value = "";
+
     button.removeAttribute("disabled");
 })
