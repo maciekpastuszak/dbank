@@ -15,10 +15,14 @@ document.querySelector("form").addEventListener("submit", async function(event) 
 
     button.setAttribute("disabled", true);
 
+    if (document.getElementById("input-amount").value.length != 0){
+        
+    }
     await dbank_backend.topUp(inputAmount);
 
     const currentAmount = await dbank_backend.checkBalance();
     document.getElementById("value").innerText = Math.round(currentAmount * 100) / 100;
 
+    document.getElementById("input-amount").value = "";
     button.removeAttribute("disabled");
 })
