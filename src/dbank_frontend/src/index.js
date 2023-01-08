@@ -1,8 +1,7 @@
 import { dbank_backend } from "../../declarations/dbank_backend";
 
 window.addEventListener("load", async function() {
-    const currentAmount = await dbank_backend.checkBalance();
-    document.getElementById("value").innerText = Math.round(currentAmount * 100);
+update();
 });
 
 document.querySelector("form").addEventListener("submit", async function(event) {
@@ -23,12 +22,17 @@ document.querySelector("form").addEventListener("submit", async function(event) 
         await dbank_backend.withdraw(outputAmount); 
     };
 
-    const currentAmount = await dbank_backend.checkBalance();
+    await dbank_backend.compound()
 
-    document.getElementById("value").innerText = Math.round(currentAmount * 100) / 100;
+    update();
 
     document.getElementById("input-amount").value = "";
     document.getElementById("withdrawal-amount").value = "";
 
     button.removeAttribute("disabled");
-})
+});
+
+async function update() {
+    const currentAmount = await dbank_backend.checkBalance();
+    document.getElementById("value").innerText = Math.round(currentAmount * 100) / 100;
+}
